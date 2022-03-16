@@ -55,13 +55,13 @@ void	loop_until_death(t_philo *philo, t_data *data);
 
 //	ROUTINE
 void	eat(t_philo *philo);
-void	*routine(void	*function_input);
+void	*routine(void	*routine_input);
 
 //	UTILS
 int		ft_atoi(const char *str);
 int		error(char *msg);
 size_t	get_time(void);
-void	ft_sleep(size_t time, size_t time_to_wait);
+void	ft_sleep(size_t time_to_wait);
 void	print_msg(t_philo *philo, char *msg);
 
 #endif

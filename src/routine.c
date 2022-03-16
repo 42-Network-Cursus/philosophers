@@ -23,26 +23,26 @@ void	eat(t_philo *philo)
 	print_msg(philo, "has taken a fork\n");
 	pthread_mutex_lock(&philo->data->fork[r_fork]);
 	print_msg(philo, "has taken a fork\n");
-	philo->time_of_last_meal = get_time();
 	print_msg(philo, "is eating\n");
+	philo->time_of_last_meal = get_time();
 	if (philo->data->time_to_die < philo->data->time_to_eat)
-		ft_sleep(get_time(), philo->data->time_to_die);
+		ft_sleep(philo->data->time_to_die);
 	else
-		ft_sleep(get_time(), philo->data->time_to_eat);
+		ft_sleep(philo->data->time_to_eat);
 	pthread_mutex_unlock(&philo->data->fork[l_fork]);
 	pthread_mutex_unlock(&philo->data->fork[r_fork]);
 	return ;
 }
 
-void	*routine(void	*function_input)
+void	*routine(void	*routine_input)
 {
 	t_philo		*philo;
 
-	philo = function_input;
+	philo = routine_input;
 	while (!philo->data->start)
 		continue ;
 	if (philo->id % 2 == 0)
-		ft_sleep(get_time(), philo->data->time_to_eat / 2);
+		ft_sleep(philo->data->time_to_eat / 2);
 	while (!philo->data->philo_died && !philo->ate_max_meals)
 	{	
 		eat(philo);
@@ -50,7 +50,7 @@ void	*routine(void	*function_input)
 		if (philo->number_of_meals == philo->data->number_of_max_meals)
 			philo->ate_max_meals = 1;
 		print_msg(philo, "is sleeping\n");
-		ft_sleep(get_time(), philo->data->time_to_sleep);
+		ft_sleep(philo->data->time_to_sleep);
 		print_msg(philo, "is thinking\n");
 	}
 	return (0);

@@ -22,15 +22,17 @@ size_t	get_time(void)
 {
 	struct timeval	time;
 
-	if (gettimeofday(&time, NULL))
-		return (0);
+	gettimeofday(&time, NULL);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-void	ft_sleep(size_t time, size_t time_to_wait)
+void	ft_sleep(size_t time_to_wait)
 {
+	size_t	time;
+
+	time = get_time();
 	while ((get_time() - time) < time_to_wait)
-		usleep(50);
+		usleep(175);
 }
 
 void	print_msg(t_philo *philo, char *msg)

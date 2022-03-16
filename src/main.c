@@ -31,8 +31,8 @@ void	free_and_destroy(t_philo *philo, t_data *data)
 
 void	loop_until_death(t_philo *philo, t_data *data)
 {
-	int	i;
-	int	last_meal;
+	int		i;
+	size_t	last_meal;
 
 	while (!data->start)
 		continue ;
@@ -41,8 +41,8 @@ void	loop_until_death(t_philo *philo, t_data *data)
 		i = -1;
 		while (++i < data->nb_of_philos && !data->philo_died)
 		{
-			last_meal = (int)(get_time() - philo[i].time_of_last_meal);
-			if (last_meal > data->time_to_die)
+			last_meal = get_time() - philo[i].time_of_last_meal;
+			if ((int)last_meal > data->time_to_die)
 			{
 				print_msg(philo, "has died.\n");
 				data->philo_died = 1;
@@ -52,8 +52,7 @@ void	loop_until_death(t_philo *philo, t_data *data)
 				data->philo_died = 1;
 				break ;
 			}
-		}	
-		usleep(100);
+		}
 	}
 }
 
@@ -72,9 +71,7 @@ int	main(int ac, char **av)
 	data.fork = malloc(sizeof(pthread_mutex_t) * data.nb_of_philos);
 	if (!data.fork)
 		return (error("Error\nMalloc failed\n"));
-	data.time_at_launch = get_time();
 	philos_init(philo, &data);
-	data.start = 1;
 	loop_until_death(philo, &data);
 	free_and_destroy(philo, &data);
 	return (0);

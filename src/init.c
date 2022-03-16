@@ -48,11 +48,15 @@ void	philos_init(t_philo *philo, t_data *data)
 	while (++i < data->nb_of_philos)
 	{
 		philo[i].data = data;
-		philo[i].time_of_last_meal = data->time_at_launch;
 		philo[i].id = i + 1;
 		philo[i].number_of_meals = 0;
 		philo[i].ate_max_meals = 0;
 		pthread_mutex_init(&data->fork[i], NULL);
 		pthread_create(&philo[i].thread_id, NULL, routine, &philo[i]);
 	}
+	data->time_at_launch = get_time();
+	i = -1;
+	while (++i < data->nb_of_philos)
+		philo[i].time_of_last_meal = data->time_at_launch;
+	data->start = 1;
 }
