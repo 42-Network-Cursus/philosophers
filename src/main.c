@@ -70,7 +70,10 @@ int	main(int ac, char **av)
 		return (error("Error\nMalloc failed\n"));
 	data.fork = malloc(sizeof(pthread_mutex_t) * data.nb_of_philos);
 	if (!data.fork)
+	{
+		free(philo);
 		return (error("Error\nMalloc failed\n"));
+	}
 	philos_init(philo, &data);
 	loop_until_death(philo, &data);
 	free_and_destroy(philo, &data);
