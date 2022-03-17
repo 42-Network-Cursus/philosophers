@@ -67,10 +67,14 @@ int	main(int ac, char **av)
 		return (1);
 	philo = malloc(sizeof(t_philo) * data.nb_of_philos);
 	if (!philo)
+	{
+		pthread_mutex_destroy(&data->print);
 		return (error("Error\nMalloc failed\n"));
+	}
 	data.fork = malloc(sizeof(pthread_mutex_t) * data.nb_of_philos);
 	if (!data.fork)
 	{
+		pthread_mutex_destroy(&data->print);
 		free(philo);
 		return (error("Error\nMalloc failed\n"));
 	}
