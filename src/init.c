@@ -38,7 +38,6 @@ int	params_init(char **av, t_data *data)
 		return (error("Error\nMutex init failed\n"));
 	data->philo_died = 0;
 	data->start = 0;
-	data->ate_max_meals = 0;
 	return (0);
 }
 
@@ -64,6 +63,7 @@ int	philos_init(t_philo *philo, t_data *data)
 	i = -1;
 	while (++i < data->nb_of_philos)
 		philo[i].time_of_last_meal = data->time_at_launch;
+	data->ate_max_meals = 0;
 	data->start = 1;
 	return (0);
 }
