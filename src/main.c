@@ -12,6 +12,9 @@
 
 #include "../header/philo.h"
 
+CHECK MUTEX INIT
+CHECK IF ALL PHILOS HAVE EATEN ALL THEIR MEALS
+
 void	free_and_destroy(t_philo *philo, t_data *data)
 {
 	int	i;
