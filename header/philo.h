@@ -33,6 +33,7 @@ typedef struct s_data
 	int				time_to_die;
 	int				number_of_max_meals;
 	int				philo_died;
+	int				ate_max_meals;
 }				t_data;
 
 typedef struct s_philosopher
@@ -42,12 +43,11 @@ typedef struct s_philosopher
 	size_t			time_of_last_meal;
 	int				number_of_meals;
 	int				id;
-	int				ate_max_meals;
 }				t_philo;
 
 //	INIT
 int		params_init(char **av, t_data *data);
-void	philos_init(t_philo *philo, t_data *data);
+int		philos_init(t_philo *philo, t_data *data);
 
 //	MAIN
 void	free_and_destroy(t_philo *philo, t_data *data);
@@ -56,6 +56,7 @@ void	loop_until_death(t_philo *philo, t_data *data);
 //	ROUTINE
 void	eat(t_philo *philo);
 void	*routine(void	*routine_input);
+void	ft_free(int nb, t_data *data, t_philo *philo);
 
 //	UTILS
 int		ft_atoi(const char *str);

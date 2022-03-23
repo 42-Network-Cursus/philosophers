@@ -12,9 +12,6 @@
 
 #include "../header/philo.h"
 
-CHECK MUTEX INIT
-CHECK IF ALL PHILOS HAVE EATEN ALL THEIR MEALS
-
 void	free_and_destroy(t_philo *philo, t_data *data)
 {
 	int	i;
@@ -59,6 +56,16 @@ void	loop_until_death(t_philo *philo, t_data *data)
 	}
 }
 
+void	ft_free(int nb, t_data *data, t_philo *philo)
+{
+	if (nb > 3)
+		pthread_mutex_destroy(&data->print);
+	if (nb > 2)
+		free(philo);
+	if (nb > 1)
+		free(data->fork);
+}
+
 int	main(int ac, char **av)
 {
 	t_philo	*philo;
@@ -70,18 +77,12 @@ int	main(int ac, char **av)
 		return (1);
 	philo = malloc(sizeof(t_philo) * data.nb_of_philos);
 	if (!philo)
-	{
-		pthread_mutex_destroy(&data->print);
-		return (error("Error\nMalloc failed\n"));
-	}
+		return (ft_free(2, &data, philo), error("Error\nMalloc failed\n"));
 	data.fork = malloc(sizeof(pthread_mutex_t) * data.nb_of_philos);
 	if (!data.fork)
-	{
-		pthread_mutex_destroy(&data->print);
-		free(philo);
-		return (error("Error\nMalloc failed\n"));
-	}
-	philos_init(philo, &data);
+		return (ft_free(1, &data, philo), error("Error\nMalloc failed\n"));
+	if (philos_init(philo, &data))
+		return (ft_free(0, &data, philo), error("Error\nMalloc failed\n"));
 	loop_until_death(philo, &data);
 	free_and_destroy(philo, &data);
 	return (0);

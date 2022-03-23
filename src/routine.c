@@ -37,18 +37,23 @@ void	eat(t_philo *philo)
 void	*routine(void	*routine_input)
 {
 	t_philo		*philo;
+	int			max_meals;
 
+	max_meals = 0;
 	philo = routine_input;
 	while (!philo->data->start)
 		continue ;
 	if (philo->id % 2 == 0)
 		ft_sleep(philo->data->time_to_eat / 2);
-	while (!philo->data->philo_died && !philo->ate_max_meals)
+	while (!philo->data->philo_died && !max_meals)
 	{	
 		eat(philo);
 		philo->number_of_meals++;
 		if (philo->number_of_meals == philo->data->number_of_max_meals)
-			philo->ate_max_meals = 1;
+		{
+			philo->data->ate_max_meals += 1;
+			max_meals = 1;
+		}
 		print_msg(philo, "is sleeping\n");
 		ft_sleep(philo->data->time_to_sleep);
 		print_msg(philo, "is thinking\n");

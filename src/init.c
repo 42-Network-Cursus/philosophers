@@ -34,13 +34,15 @@ int	params_init(char **av, t_data *data)
 	}
 	else
 		data->number_of_max_meals = -1;
-	pthread_mutex_init(&data->print, NULL);
+	if (pthread_mutex_init(&data->print, NULL))
+		return (error("Error\nMutex init failed\n"));
 	data->philo_died = 0;
 	data->start = 0;
+	data->ate_max_meals = 0;
 	return (0);
 }
 
-void	philos_init(t_philo *philo, t_data *data)
+int	philos_init(t_philo *philo, t_data *data)
 {
 	int	i;
 
@@ -50,8 +52,12 @@ void	philos_init(t_philo *philo, t_data *data)
 		philo[i].data = data;
 		philo[i].id = i + 1;
 		philo[i].number_of_meals = 0;
-		philo[i].ate_max_meals = 0;
-		pthread_mutex_init(&data->fork[i], NULL);
+		if (pthread_mutex_init(&data->fork[i], NULL))
+		{
+			while (--i >= 0)
+				pthread_mutex_destroy(&data->fork[i]);
+			return (error("Error\nMutex init failed\n"));
+		}
 		pthread_create(&philo[i].thread_id, NULL, routine, &philo[i]);
 	}
 	data->time_at_launch = get_time();
@@ -59,4 +65,5 @@ void	philos_init(t_philo *philo, t_data *data)
 	while (++i < data->nb_of_philos)
 		philo[i].time_of_last_meal = data->time_at_launch;
 	data->start = 1;
+	return (0);
 }
