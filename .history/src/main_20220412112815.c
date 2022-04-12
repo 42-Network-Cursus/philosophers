@@ -47,7 +47,7 @@ void	loop_until_death(t_philo *philo, t_data *data)
 				print_msg(philo, "has died.\n");
 				data->philo_died = 1;
 			}
-			if (data->ate_max_meals == data->nb_of_philos)
+			if (data->ate_max_meals == data->number_of_max_meals)
 			{
 				data->philo_died = 1;
 				break ;
