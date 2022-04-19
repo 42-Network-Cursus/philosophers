@@ -1,0 +1,38 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: cwastche <cwastche@student.s19.be>         +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/03/16 09:48:04 by cwastche          #+#    #+#              #
+#    Updated: 2022/03/16 09:48:11 by cwastche         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+SRC		=	src/main.c src/init.c src/routine.c \
+			utils/ft_atoi.c utils/utils.c
+NAME	=	philo
+CCFLAGS	=	gcc -Wall -Wextra -Werror -g -fsanitize=thread
+OBJ		= 	$(addprefix $(DIR_OBJ)/,$(SRC:.c=.o))
+DIR_OBJ	=	obj
+
+all		:	$(NAME)
+			@mkdir -p $(DIR_OBJ)
+
+$(NAME)	:	$(OBJ)
+			$(CCFLAGS) -pthread $(OBJ) -o $(NAME)
+
+$(DIR_OBJ)/%.o : %.c
+			@mkdir -p $(DIR_OBJ) $(DIR_OBJ)/src $(DIR_OBJ)/utils
+			$(CCFLAGS) -c $< -o $@
+
+clean	:
+			rm -rf $(OBJ) $(DIR_OBJ)
+
+fclean	:	clean
+			rm -rf $(NAME)
+
+re		:	fclean all
+
+.PHONY	:	all clean fclean re
