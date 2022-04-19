@@ -72,11 +72,12 @@ void	*routine(void	*routine_input)
 		philo->number_of_meals++;
 		if (philo->number_of_meals == philo->data->number_of_max_meals)
 		{
-			pthread_mutex_lock(&philo->data->print);
+			pthread_mutex_lock(&data->print);
 			philo->data->ate_max_meals += 1;
-			pthread_mutex_unlock(&philo->data->print);
+			pthread_mutex_unlock(&data->print);
 			max_meals = 1;
 		}
+		
 		think_sleep(philo);
 	}
 	return (0);

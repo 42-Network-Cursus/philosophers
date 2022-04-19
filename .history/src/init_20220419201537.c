@@ -40,13 +40,7 @@ int	params_init(char **av, t_data *data)
 	return (0);
 }
 
-int	free_threads(t_philo *philo, int i)
-{
-	while (--i)
-		pthread_join(philo[i].thread_id, NULL);
-	printf("Error\nPthread create failed\n");
-	return (1);
-}
+int	free_threads()
 
 int	philos_init(t_philo *philo, t_data *data)
 {

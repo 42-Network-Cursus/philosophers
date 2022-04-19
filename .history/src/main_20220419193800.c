@@ -62,7 +62,6 @@ void	loop_until_death(t_philo *philo, t_data *data)
 				pthread_mutex_unlock(&data->print);
 				break ;
 			}
-			pthread_mutex_unlock(&data->print);
 		}
 	}
 }
@@ -93,7 +92,7 @@ int	main(int ac, char **av)
 	if (!data.fork)
 		return (ft_free(1, &data, philo), error("Error\nMalloc failed\n"));
 	if (philos_init(philo, &data))
-		return (ft_free(0, &data, philo), 1);
+		return (ft_free(0, &data, philo), error("Error\nMalloc failed\n"));
 	loop_until_death(philo, &data);
 	free_and_destroy(philo, &data);
 	return (0);

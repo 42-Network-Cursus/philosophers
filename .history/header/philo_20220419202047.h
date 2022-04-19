@@ -47,7 +47,7 @@ typedef struct s_philosopher
 //	INIT
 int		params_init(char **av, t_data *data);
 int		philos_init(t_philo *philo, t_data *data);
-void	free_threads(t_philo *philo, int i);
+void	free_threads(t_philo *philo, int i)''
 
 //	MAIN
 void	free_and_destroy(t_philo *philo, t_data *data);

@@ -40,14 +40,6 @@ int	params_init(char **av, t_data *data)
 	return (0);
 }
 
-int	free_threads(t_philo *philo, int i)
-{
-	while (--i)
-		pthread_join(philo[i].thread_id, NULL);
-	printf("Error\nPthread create failed\n");
-	return (1);
-}
-
 int	philos_init(t_philo *philo, t_data *data)
 {
 	int	i;
@@ -66,8 +58,7 @@ int	philos_init(t_philo *philo, t_data *data)
 				pthread_mutex_destroy(&data->fork[i]);
 			return (error("Error\nMutex init failed\n"));
 		}
-		if (pthread_create(&philo[i].thread_id, NULL, routine, &philo[i]))
-			return (free_threads(philo, i));
+		pthread_create(&philo[i].thread_id, NULL, routine, &philo[i]); // protect
 	}
 	data->time_at_launch = get_time();
 	i = -1;

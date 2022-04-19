@@ -14,7 +14,7 @@ SRC		=	src/main.c src/init.c src/routine.c \
 			utils/ft_atoi.c utils/utils.c
 NAME	=	philo
 CCFLAGS	=	gcc -Wall -Wextra -Werror \
-# -g -fsanitize=thread
+-g -fsanitize=thread
 OBJ		= 	$(addprefix $(DIR_OBJ)/,$(SRC:.c=.o))
 DIR_OBJ	=	obj
 

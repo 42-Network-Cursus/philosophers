@@ -48,17 +48,15 @@ static int	ft_check_res(unsigned long long int res, int sign)
 	return (-1);
 }
 
-static int	invalid_input(const char *str)
+int	invalid_input(char *str)
 {
-	int	i;
+	int i;
 
 	i = -1;
 	while (str[++i])
 	{
 		if (!ft_isdigit(str[i]))
-			return (1);
 	}
-	return (0);
 }
 
 int	ft_atoi(const char *str)
@@ -73,7 +71,7 @@ int	ft_atoi(const char *str)
 	if (*str == '-')
 		sign = -1;
 	if (*str == '-')
-		str++;
+	 	str++;
 	if (invalid_input(str))
 		return (0);
 	if (ft_overflow((char *)str))

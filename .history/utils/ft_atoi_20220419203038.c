@@ -72,7 +72,7 @@ int	ft_atoi(const char *str)
 		str++;
 	if (*str == '-')
 		sign = -1;
-	if (*str == '-')
+	if (*str	== '-')
 		str++;
 	if (invalid_input(str))
 		return (0);

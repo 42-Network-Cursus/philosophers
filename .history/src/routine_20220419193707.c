@@ -77,6 +77,7 @@ void	*routine(void	*routine_input)
 			pthread_mutex_unlock(&philo->data->print);
 			max_meals = 1;
 		}
+		
 		think_sleep(philo);
 	}
 	return (0);

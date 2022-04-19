@@ -44,7 +44,6 @@ int	free_threads(t_philo *philo, int i)
 {
 	while (--i)
 		pthread_join(philo[i].thread_id, NULL);
-	printf("Error\nPthread create failed\n");
 	return (1);
 }
 
@@ -67,7 +66,7 @@ int	philos_init(t_philo *philo, t_data *data)
 			return (error("Error\nMutex init failed\n"));
 		}
 		if (pthread_create(&philo[i].thread_id, NULL, routine, &philo[i]))
-			return (free_threads(philo, i));
+			return (free_threads(philo, i), error("Error\nPthread create failed\n"));
 	}
 	data->time_at_launch = get_time();
 	i = -1;
